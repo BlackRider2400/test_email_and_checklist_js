@@ -1,0 +1,12 @@
+.alert_field{
+  display: flex;
+}
+.device_checkbox{
+  display: block;
+}
+.alert_div_container{
+  align-items: center;
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+}

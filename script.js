@@ -2,7 +2,7 @@ $(document).ready(function(){
   var devices = ["shop", "cinema", "pharmacy"];
   var emails = ["johnsmith@gmail.com", "johnsmithlegitmail@gmail.com", "test@test.com"];
   var alerts_container = $('[alert_div_container]');
-  var alertTemplate = $('[alert_field]').children()[0];
+  var alertTemplate = $('[alert_field]');
 
   getAllAlerts();
 
@@ -17,7 +17,7 @@ $(document).ready(function(){
   }
   function createAlertRow(data){
     var element = $(alertTemplate).clone();
-    var checkbox = element.find('[device_checkbox]').children()[0];
+    var checkbox = element.find('[device_checkbox]');
     element.find('[email_input]').val(data);
     devices.forEach(i => {
       var element_checkbox = $(checkbox).clone();
@@ -26,4 +26,13 @@ $(document).ready(function(){
     });
     return element;
   }
+
+  $('[checkbox_all]').change(function(){
+    var checkboxes = $(this).parent().find("[checkbox]").toArray();
+    alert(checkboxes);
+    checkboxes.forEach( i => {
+      i.checked = $(this).checked;
+    });
+  });
+
 });

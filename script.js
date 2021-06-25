@@ -3,6 +3,7 @@ $(document).ready(function(){
   var emails = ["johnsmith@gmail.com", "johnsmithlegitmail@gmail.com", "test@test.com"];
   var alerts_container = $('[alert_div_container]');
   var alertTemplate = $('[alert_field]');
+  var j = 0; //to będzie musiało być to id zgłoszenia, że jak renderuje to ogarnia data.id
 
   getAllAlerts();
 
@@ -17,22 +18,34 @@ $(document).ready(function(){
   }
   function createAlertRow(data){
     var element = $(alertTemplate).clone();
-    var checkbox = element.find('[device_checkbox]');
+    element.attr("alert_id", j);
+    var checkbox = element.find('[checkbox_element]');
     element.find('[email_input]').val(data);
     devices.forEach(i => {
       var element_checkbox = $(checkbox).clone();
       element_checkbox.find("[device_name]").text(i);
+      element_checkbox.attr("alert_id", j);
       element_checkbox.appendTo(element);
     });
+    j += 1;
     return element;
   }
 
-  $('[checkbox_all]').change(function(){
-    var checkboxes = $(this).parent().find("[checkbox]").toArray();
-    alert(checkboxes);
-    checkboxes.forEach( i => {
-      i.checked = $(this).checked;
-    });
+  $('[checkbox]').on('click', function(){
+    var id = $(this).attr("alert_id");
+    if($(this).parent().find('[device_name]').text() == "ALL"){
+      alert("yes " + $(this).attr("alert_id"));
+      checkCheckboxes($(this), id);
+    }
   });
+
+  function checkCheckboxes(element, id){
+    $("[checkbox]").each(function(){
+      if($(this).attr("alert_id") == id){
+        $(this).prop("checked", element.is(":checked"));
+      }
+    });
+  }
+
 
 });
